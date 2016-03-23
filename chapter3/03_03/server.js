@@ -2,6 +2,7 @@
  * Created by randy on 3/21/16.
  */
 'use strict';
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 var express = require('./config/express');
 var app = express();
