@@ -9,14 +9,24 @@ var UserSchema = new Schema({
     lastName: String,
     email: {
         type: String,
-        index: true
+        index: true,
+        match: /.+\@.+\..+/
     },
     username: {
         type: String,
         trim: true,
-        unique: true
+        unique: true,
+        required: true
     },
-    password: String,
+    password: {
+        type: String,
+        validate: [
+            function (password) {
+                return password.length >= 6;
+            },
+            'Password should be longer!'
+        ]
+    },
     website: {
         type: String,
         // Use setter when not using getter when applicable
@@ -40,6 +50,10 @@ var UserSchema = new Schema({
                 return url;
             }
         }
+    },
+    role: {
+        type: String,
+        enum: ['Admin', 'Owner', 'User']
     },
     created: {
         type: Date,
