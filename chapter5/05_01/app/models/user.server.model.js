@@ -61,6 +61,21 @@ var UserSchema = new Schema({
     }
 });
 
+var PostSchema = new Schema({
+    title: {
+        type: String,
+        required: true
+    },
+    content: {
+        type: String,
+        required: true
+    },
+    author: {
+        type: Schema.ObjectId,
+        ref: 'User'
+    }
+});
+
 UserSchema.virtual('fullName').get(function () {
     return this.firstName + ' ' + this.lastName;
 }).set(function (fullName) {
@@ -80,3 +95,4 @@ UserSchema.methods.authenticate = function (password) {
 UserSchema.set('toJSON', { getters: true, virtuals: true });
 
 mongoose.model('User', UserSchema);
+mongoose.model('Post', PostSchema);
